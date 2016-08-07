@@ -34,7 +34,7 @@ else
 
 	if($st_update_ip->execute(array($_SERVER['REMOTE_ADDR'],$row['id']))===false) //Update IP for device
 	{
-		$errorinfo=$this->errorInfo();
+		$errorinfo=$db->errorInfo();
 		trigger_error(sprintf('Unable to update IP for %s, SQL error: %s',$mac,$errorinfo[2]));
 	}
 
