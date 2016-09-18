@@ -38,12 +38,11 @@ else
 		$st_insert=$db->prepare('INSERT INTO videos (file, position,device) VALUES (?,?,?)');
 		$st_delete=$db->prepare('DELETE FROM videos WHERE id=?');
 
-		print_r($_POST);
 		foreach($_POST['videos'] as $id=>$video)
 		{
 			if(is_numeric($id))
 			{
-				if(empty($video['file']))
+				if(!empty($video['file']))
 					$db->execute($st_update,array($video['file'],$video['position'],$id),false);
 				else
 					$db->execute($st_delete,array($id),false);
@@ -74,7 +73,7 @@ else
 				$option->setAttribute('selected','selected');
 		}
 		$td_order=$dom->createElement_simple('td',$tr);
-		$input_order=$dom->createElement_simple('input',$td_order,array('type'=>'text','name'=>'videos[extra_1][order]','size'=>2,'value'=>$row['position']));
+		$input_order=$dom->createElement_simple('input',$td_order,array('type'=>'text','name'=>sprintf('videos[%s][position]',$row['id']),'size'=>2,'value'=>$row['position']));
 
 	}
 	$tr=$dom->createElement_simple('tr',$table,array('id'=>'extra_row_1')); //Create first extra row
